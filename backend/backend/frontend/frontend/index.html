@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio & E-commerce</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+    
+    header {
+      background: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+    }
+    
+    nav {
+      display: flex;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #667eea;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    nav a:hover {
+      color: #764ba2;
+    }
+    
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    section {
+      display: none;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    
+    section.active {
+      display: block;
+    }
+    
+    h1 {
+      color: white;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #667eea;
+    }
+    
+    button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    
+    button:hover {
+      background: #764ba2;
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      nav {
+        gap: 1rem;
+      }
+      
+      nav a {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a onclick="showSection('home')">🏠 Home</a>
+      <a onclick="showSection('portfolio')">💼 Portfolio</a>
+      <a onclick="showSection('shop')">🛒 Shop</a>
+      <a onclick="showSection('contact')">📧 Contact</a>
+    </nav>
+  </header>
+  
+  <main>
+    <!-- HOME -->
+    <section id="home" class="active">
+      <h1>Selamat Datang! 👋</h1>
+      <div style="background: white; padding: 2rem; border-radius: 10px; text-align: center;">
+        <h2>Portfolio & Mini E-commerce</h2>
+        <p style="margin: 1rem 0; font-size: 1.1rem;">Cek portfolio gua atau belanja produk seru di sini!</p>
+        <button onclick="showSection('portfolio')">Lihat Portfolio →</button>
+      </div>
+    </section>
+    
+    <!-- PORTFOLIO -->
+    <section id="portfolio">
+      <h1>💼 Portfolio Saya</h1>
+      <div id="portfolioContainer">
+        <p>Loading...</p>
+      </div>
+    </section>
+    
+    <!-- SHOP -->
+    <section id="shop">
+      <h1>🛒 Shop</h1>
+      <div id="shopContainer">
+        <p>Loading...</p>
+      </div>
+    </section>
+    
+    <!-- CONTACT -->
+    <section id="contact">
+      <h1>📧 Contact Me</h1>
+      <div style="background: white; padding: 2rem; border-radius: 10px;">
+        <form onsubmit="handleSubmit(event)">
+          <label for="name">Nama:</label>
+          <input type="text" id="name" required>
+          
+          <label for="email">Email:</label>
+          <input type="email" id="email" required>
+          
+          <label for="message">Pesan:</label>
+          <textarea id="message" required style="min-height: 150px;"></textarea>
+          
+          <button type="submit">Kirim Pesan 📬</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    // Switch sections
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+    
+    // Load portfolio & products
+    function loadPortfolio() {
+      const mockData = [
+        { id: 1, title: 'Project 1', description: 'Website Awesome - React & Tailwind' },
+        { id: 2, title: 'Project 2', description: 'Mobile App - Flutter' },
+        { id: 3, title: 'Project 3', description: 'E-commerce Platform - Node.js' }
+      ];
+      
+      const container = document.getElementById('portfolioContainer');
+      container.innerHTML = mockData.map(p => `
+        <div class="card">
+          <h3>${p.title}</h3>
+          <p>${p.description}</p>
+          <a href="#" style="color: #667eea; text-decoration: none;">🔗 Lihat Project</a>
+        </div>
+      `).join('');
+    }
+    
+    function loadShop() {
+      const mockData = [
+        { id: 1, name: 'Produk 1', price: 50000 },
+        { id: 2, name: 'Produk 2', price: 75000 },
+        { id: 3, name: 'Produk 3', price: 100000 }
+      ];
+      
+      const container = document.getElementById('shopContainer');
+      container.innerHTML = mockData.map(p => `
+        <div class="card">
+          <h3>${p.name} - Rp ${p.price.toLocaleString('id-ID')}</h3>
+          <p>Produk berkualitas pilihan untuk lo</p>
+          <button onclick="addToCart('${p.name}', ${p.price})">Add to Cart 🛒</button>
+        </div>
+      `).join('');
+    }
+    
+    // Cart
+    let cart = [];
+    
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      alert(`${product} ditambah ke keranjang!\nTotal items: ${cart.length}`);
+    }
+    
+    // Contact form
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      alert(`Terima kasih ${name}! Pesan lo udah gua terima. 📬`);
+      event.target.reset();
+    }
+    
+    // Load on start
+    loadPortfolio();
+    loadShop();
+  </script>
+</body>
+  </html>
